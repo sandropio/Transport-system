@@ -1,0 +1,144 @@
+<odoo>
+    <data>
+
+
+        <record id="tts_res_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form.tts</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group class="group_block">
+                        <field name="company_type" widget="radio" class="oe_edit_only"
+                               options="{'horizontal': true, 'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                        <field name="name" string="სრული სახელი"
+                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="name" string="სახელი" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="last_name" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="id_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="mobile_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="email_address" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="contact_person" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="register_address"/>
+                        <field name="juridical_address"/>
+                        <field name="actual_location"/>
+                        <field name="actual_address"/>
+                        <field name="business_type"/>
+                        <field name="job_carrier_type"/>
+                        <field name="job_account_ids"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="partner_list_action">
+            <field name="name">კონტრაქტორი</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('tts_type', '=', 'contractor')]</field>
+            <field name="context">{'default_tts_type': 'contractor'}</field>
+            <field name="view_ids" eval="[(5,0,0),
+                          (0,0,{'view_mode':'tree'}),
+                          (0,0,{'view_mode':'form', 'view_id': ref('tts_res_partner_form')})]"/>
+        </record>
+
+
+        <record id="tts_res_sender_form" model="ir.ui.view">
+            <field name="name">tts.sender.form.tts</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group class="group_block">
+                        <field name="company_type" widget="radio" class="oe_edit_only"
+                               options="{'horizontal': true, 'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                        <field name="name" string="სრული სახელი"
+                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="identification_no" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="contract" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="name" string="სახელი" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="last_name" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="id_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="contact_person" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="register_address"/>
+                        <field name="juridical_address"/>
+                        <field name="mobile_number"/>
+                        <field name="email_address"/>
+                        <field name="invoice" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="user"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="sender_list_action">
+            <field name="name">გამომგზავნი</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('tts_type', '=', 'sender')]</field>
+            <field name="context">{'default_tts_type': 'sender'}</field>
+            <field name="view_ids" eval="[(5,0,0),
+                          (0,0,{'view_mode':'tree'}),
+                          (0,0,{'view_mode':'form', 'view_id': ref('tts_res_sender_form')})]"/>
+
+        </record>
+
+
+        <record id="tts_res_client_form" model="ir.ui.view">
+            <field name="name">tts.customer.form.tts</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group class="group_block">
+                        <field name="company_type" widget="radio" class="oe_edit_only"
+                               options="{'horizontal': true, 'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                        <field name="name" string="სრული სახელი"
+                               attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="identification_no" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="contract" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="name" string="სახელი" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="last_name" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="id_number" attrs="{'invisible': [('company_type', '=', 'company')]}"/>
+                        <field name="contact_person" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="register_address"/>
+                        <field name="juridical_address"/>
+                        <field name="mobile_number"/>
+                        <field name="email_address"/>
+                        <field name="invoice" attrs="{'invisible': [('company_type', '=', 'person')]}"/>
+                        <field name="user"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="client_list_action">
+            <field name="name">კლიენტი</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('tts_type', '=', 'customer')]</field>
+            <field name="context">{'default_tts_type': 'customer'}</field>
+            <field name="view_ids" eval="[(5,0,0),
+                          (0,0,{'view_mode':'tree'}),
+                          (0,0,{'view_mode':'form', 'view_id': ref('tts_res_client_form')})]"/>
+        </record>
+
+
+        <menuitem id="partner_menu" name="პარტნიორი"/>
+
+        <menuitem id="partner_list" name="პარტნიორი"
+                  parent="partner_menu"/>
+
+        <menuitem id="partner_list_client" name="კლიენტი"
+                  parent="partner_list" action="client_list_action"/>
+        <menuitem id="partner_list_partner" name="კონტრაქტორი"
+                  parent="partner_list" action="partner_list_action"/>
+        <menuitem id="partner_list_sender" name="გამომგზავნი"
+                  parent="partner_list" action="sender_list_action"/>
+
+
+    </data>
+</odoo>

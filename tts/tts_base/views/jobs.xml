@@ -1,0 +1,218 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="tfg assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet"
+                      href="/tts_base/static/src/css/style.css"/>
+            </xpath>
+        </template>
+
+        <record id="document_form" model="ir.ui.view">
+            <field name="name">tts.document</field>
+            <field name="model">ir.attachment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="doc_type"/>
+                        <field name="note"/>
+                        <field name="datas" widget="binary"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_job_parcel_view" model="ir.ui.view">
+            <field name="name">tts.parcel.form</field>
+            <field name="model">tts.parcel</field>
+            <field name="arch" type="xml">
+                <form class="sheet_block">
+                    <sheet>
+                        <separator class="separator_location" string='JOB'/>
+                        <group class="group_block">
+                            <group class="group_block">
+                                <group>
+                                    <field name="job_no"/>
+                                </group>
+                                <group>
+                                    <field name="job_date"/>
+                                </group>
+                            </group>
+                            <group class="group_block" col="3">
+                                <group>
+                                    <field name="freight_type"/>
+                                </group>
+                                <group>
+                                    <field name="job_status"/>
+                                </group>
+                                <group>
+                                    <field name="job_status_date"/>
+                                </group>
+                            </group>
+                            <group class="group_block" col="3">
+                                <group>
+                                    <field name="customer"/>
+                                </group>
+                                <group>
+                                    <field name="receiver"/>
+                                </group>
+                                <group>
+                                    <field name="sender_organisation_link"/>
+                                </group>
+                            </group>
+                        </group>
+                    </sheet>
+
+
+                    <sheet>
+                        <separator class="separator_location" string='ტვირთი'/>
+                        <group class="group_block">
+                            <group class="group_block" col="3">
+                                <group>
+                                    <field name="parcel_type"/>
+                                </group>
+                                <group>
+                                    <field name="weight"/>
+                                </group>
+                                <group>
+                                    <field name="pickup_date"/>
+                                </group>
+                            </group>
+
+                            <group class="group_block" col="3">
+                                <group>
+                                    <field name="long_meter"/>
+                                </group>
+                                <group>
+                                    <field name="dimension"/>
+                                </group>
+                                <group>
+                                    <field name="volume_size"/>
+                                </group>
+                            </group>
+
+                            <group class="group_block" col="3">
+                                <group>
+                                    <field name="packaging_type"/>
+                                </group>
+                                <group>
+                                    <field name="shipping_terms"/>
+                                </group>
+                                <group>
+                                    <field name="ref_no"/>
+                                </group>
+                            </group>
+
+                            <group class="group_block">
+                                <group>
+                                    <field name="start_address"/>
+                                </group>
+                                <group>
+                                    <field name="start_location"/>
+                                </group>
+                            </group>
+
+                            <group class="group_block">
+                                <field name="end_address"/>
+                            </group>
+
+                            <group class="group_block">
+                                <group>
+                                    <field name="notice"/>
+                                </group>
+                                <group>
+                                    <field name="documents" widget="many2many_tags" context="{'form_view_ref': 'tts_base.document_form'}"/>
+                                </group>
+                            </group>
+
+                            <group class="group_block">
+                                <group>
+                                    <field name="current_location"/>
+                                </group>
+                                <group>
+                                    <field name="transport_type_no"/>
+                                </group>
+                            </group>
+
+                            <group class="group_block">
+                                <field name="pieces_text"/>
+                            </group>
+
+                            <group class="group_block">
+                                <group>
+                                    <field name="service_cost"/>
+                                </group>
+                                <group>
+                                    <field name="service_currency"/>
+                                </group>
+                            </group>
+
+                        </group>
+                    </sheet>
+
+                    <sheet>
+                        <separator class="separator_location" string='დაწვრილებით'/>
+                        <group>
+                            <field name="contractor">
+                                <tree editable="bottom">
+                                    <field name="contractor"
+                                           context="{'form_view_ref': 'tts_base.tts_res_partner_form'}"/>
+                                    <field name="cost"/>
+                                    <field name="currency"/>
+                                    <field name="supposed_time"/>
+                                    <field name="transport_type"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_job_parcel_tree" model="ir.ui.view">
+            <field name="name">tts.parcel.tree</field>
+            <field name="model">tts.parcel</field>
+            <field name="arch" type="xml">
+                <tree string="JOB">
+                    <field name="job_no"/>
+                    <field name="receiver"/>
+                    <field name="sender_organisation_link"/>
+                    <field name="parcel_type"/>
+                    <field name="transport_type_no"/>
+                    <field name="contractor"/>
+                    <field name="offer_id"/>
+                    <field name="start_address"/>
+                    <field name="start_location"/>
+                    <field name="end_address"/>
+                    <field name="job_status"/>
+                    <field name="job_date" string="შეკვეთის თარიღი"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="country_tree" model="ir.ui.view">
+            <field name="name">tts.country.tree</field>
+            <field name="model">tts.location</field>
+            <field name="arch" type="xml">
+                <tree string="ამოირჩიეთ ან შეიტანეთ მდებარეობა">
+                    <field name="country_id"/>
+                    <field name="zip"/>
+                    <field name="city"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="job_list_action">
+            <field name="name">JOB</field>
+            <field name="res_model">tts.parcel</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="job_menu" name="JOB" action="job_list_action"/>
+
+    </data>
+
+</odoo>

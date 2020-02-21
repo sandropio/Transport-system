@@ -1,0 +1,24 @@
+.group_block {
+    display:block!important;
+    width:100%!important;
+}
+
+.sheet_block > .o_form_sheet_bg > .o_form_sheet{
+    max-width: 1060px !important;
+}
+
+.separator_location{
+    margin-left: 400px;
+}
+
+.o_form_view .o_group.o_inner_group > tbody > tr > td.o_td_label {
+    min-width: 200px !important;
+}
+
+.o_form_view .o_group{
+    margin: 0 !important;
+}
+
+.o_form_view .o_form_sheet_bg > .o_form_sheet{
+    min-height: auto !important;
+}

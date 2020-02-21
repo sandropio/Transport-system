@@ -1,0 +1,156 @@
+<odoo>
+    <data>
+
+        <menuitem id="main_menu" name="ტვირთები" sequence="0" />
+        <menuitem id="menu_second" name="ტვირთები"  parent="main_menu" />
+        <menuitem id="job_menu" name="JOB" action="job_list_action"  parent="menu_second"/>
+        <menuitem id="offers_menu" name="წინადადება" action="offer_list_action" parent="menu_second"/>
+        <menuitem id="tracking_menu" name="თრექინგი" action="tracking_action"  parent="menu_second"/>
+        <menuitem id="invoice_menu" name="ინვოისი" action="invoice_action"  parent="menu_second"/>
+
+        <template id="assets_backend" name="tfg assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet"
+                      href="/tts_base/static/src/css/style.css"/>
+            </xpath>
+        </template>
+
+        <record id="account_invoice_form" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="state" invisible="1"/>
+                        <field name="type" invisible="1"/>
+                        <h1>
+                            <div attrs="{'invisible': [('sequence_number_next_prefix','!=',False)]}">
+                                <label string="Draft Invoice"
+                                       attrs="{'invisible': ['|',('state','not in',('draft',)), ('type','!=','out_invoice')]}"/>
+                                <label string="Draft Credit Note"
+                                       attrs="{'invisible': ['|',('state','not in',('draft',)), ('type','!=','out_refund')]}"/>
+                                <field name="number" readonly="1" class="oe_inline"
+                                       attrs="{'invisible': [('state','in',('draft',))]}"/>
+                            </div>
+                            <div attrs="{'invisible': [('sequence_number_next_prefix','=',False)]}">
+                                <label string="ინვოისის ნომერი:"/>
+                                <br/>
+                                <field name="sequence_number_next_prefix" class="oe_inline"/>
+                                <field name="sequence_number_next" class="oe_inline"/>
+                            </div>
+                        </h1>
+                        <group>
+                            <field name="partner_id" invisible="1"/>
+                        </group>
+
+                        <group class="group_block" col="2">
+                            <group>
+                                <field name="parcel" string="*ამანათი" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="status"/>
+                            </group>
+                        </group>
+
+                        <group class="group_block" col="2">
+                            <group>
+                                <field name="full_amount"/>
+                            </group>
+                            <group>
+                                <field name="paid_amount"/>
+                            </group>
+                        </group>
+
+                        <group class="group_block" col="2">
+                            <group>
+                                <field name="currency"/>
+                            </group>
+                            <group>
+                                <field name="exchange_rate"/>
+                            </group>
+                        </group>
+
+                        <notebook colspan="4">
+                        <page string="სტრიქონები">
+                            <field name="lines" nolabel="1" widget="one2many_list" mode="tree,kanban">
+                                <tree editable="bottom">
+                                    <field name="description"/>
+                                    <field name="cost"/>
+                                </tree>
+<!--                                <kanban class="o_kanban_mobile">-->
+<!--                                    <field name="product_id"/>-->
+<!--                                    <field name="price_subtotal"/>-->
+<!--                                    <field name="quantity"/>-->
+<!--                                    <field name="uom_id" groups="product.group_uom"/>-->
+<!--                                    <templates>-->
+<!--                                        <t t-name="kanban-box">-->
+<!--                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-xs-12">-->
+<!--                                                        <strong><span><t t-esc="record.product_id.value or 'None'"/></span></strong>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-xs-8 text-muted">-->
+<!--                                                        <span><t t-esc="record.quantity.value"/> <t t-esc="record.uom_id.value"/></span>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-xs-4 text-muted">-->
+<!--                                                        <span class="text-right"><t t-esc="record.price_subtotal.value"/></span>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </t>-->
+<!--                                    </templates>-->
+<!--                                </kanban>-->
+                            </field>
+<!--                            <group class="oe_subtotal_footer oe_right">-->
+<!--                                <field name="amount_untaxed"/>-->
+<!--                                <field name="amount_tax"/>-->
+<!--                                <field name="amount_total" class="oe_subtotal_footer_separator"/>-->
+<!--                                <field name="payments_widget" colspan="2" nolabel="1" widget="payment"/>-->
+<!--                                <field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}"/>-->
+<!--                                <field name="reconciled" invisible="1"/>-->
+<!--                                <field name="outstanding_credits_debits_widget" colspan="2" nolabel="1" widget="payment" attrs="{'invisible': [('state', 'not in', 'open')]}"/>-->
+<!--                            </group>-->
+                        </page>
+                        <page string="გადახდები">
+                            <field name="payments">
+                                <tree editable="bottom">
+                                    <field name="payment_person"/>
+                                    <field name="tax"/>
+                                    <field name="payment_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="account_invoice_tree" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0">
+                    <field name="sequence_number_next"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="invoice_action" model="ir.actions.act_window">
+            <field name="name">Invoice</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_ids" eval="[(5,0,0),
+                          (0,0,{'view_mode':'tree'}),
+                          (0,0,{'view_mode':'form', 'view_id': ref('account_invoice_form')})]"/>
+        </record>
+
+
+
+
+    </data>
+
+</odoo>

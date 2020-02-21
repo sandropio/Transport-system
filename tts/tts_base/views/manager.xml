@@ -1,0 +1,151 @@
+<odoo>
+    <data>
+
+        <record id="tts_freight_type_tree" model="ir.ui.view">
+            <field name="name">tts.freight.type.tree</field>
+            <field name="model">tts.freight.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="type"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="tts_packaging_type_tree" model="ir.ui.view">
+            <field name="name">tts.packaging.type.tree</field>
+            <field name="model">tts.packaging.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="tts_carrier_type_tree" model="ir.ui.view">
+            <field name="name">tts.carrier.type.tree</field>
+            <field name="model">tts.carrier.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="tts_parcel_type_tree" model="ir.ui.view">
+            <field name="name">tts.parcel.type.tree</field>
+            <field name="model">tts.parcel.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="dimension"/>
+                </tree>
+            </field>
+        </record>
+
+
+          <record id="tts_document_type_tree" model="ir.ui.view">
+            <field name="name">tts.document.type.tree</field>
+            <field name="model">tts.document.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record model="ir.actions.act_window" id="freight_types_list_action">
+            <field name="name">გადაზიდვივის ტიპი</field>
+            <field name="res_model">tts.freight.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+         <record model="ir.actions.act_window" id="packaging_types_list_action">
+            <field name="name">შეფუთვის ტიპი</field>
+            <field name="res_model">tts.packaging.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+          <record model="ir.actions.act_window" id="contacts_list_action">
+            <field name="name">საკონტაქტო პირი</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+         <record model="ir.actions.act_window" id="document_types_list_action">
+            <field name="name">დოკუმენტის ტიპი</field>
+            <field name="res_model">tts.document.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+          <record model="ir.actions.act_window" id="carrier_types_list_action">
+            <field name="name">გადამზიდავი პირი</field>
+            <field name="res_model">tts.carrier.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="parcel_types_list_action">
+            <field name="name">ტვირთის სახეობა</field>
+            <field name="res_model">tts.parcel.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="locations_list_action">
+            <field name="name">მდებარეობა</field>
+            <field name="res_model">res.country</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="main_manager_menu" name="მენეჯერი"/>
+
+        <menuitem id="list" name="მენეჯერი"
+                  parent="main_manager_menu"/>
+
+         <menuitem id="freight_types_menu" name="გადაზიდვის ტიპი" parent="list"
+                  action="freight_types_list_action"/>
+
+        <menuitem id="packaging_types_menu" name="შეფუთვის ტიპი" parent="list"
+                  action="packaging_types_list_action"/>
+
+         <menuitem id="carrier_types_menu" name="გადამზიდავის ტიპი" parent="list"
+                  action="carrier_types_list_action"/>
+
+         <menuitem id="document_types_menu" name="დოკუმენტის ტიპი" parent="list"
+                  action="document_types_list_action"/>
+
+         <menuitem id="contacts_menu" name="საკონტაქტო პირი" parent="list"
+                  action="contacts_list_action"/>
+
+         <menuitem id="parcel_types_menu" name="ტვირთის სახეობა" parent="list"
+                  action="parcel_types_list_action"/>
+
+        <menuitem id="locations_menu" name="მდებარეობა" parent="list"
+                  action="locations_list_action"/>
+
+
+
+ </data>
+
+
+
+</odoo>
